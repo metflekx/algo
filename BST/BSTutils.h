@@ -3,12 +3,41 @@
  * Author: Metflekx
  */
 
+// tree-walks
 #define INORDER 0
 #define PREORDER 1
 #define POSTORDER 2
+// directions
+#define DIR_RIGHT 0
+#define DIR_LEFT 1
 
+void printTraceRoot(Node *);
+void printTraceLeaf(Node *, int);
+void printBT(Node *, int);
 
-void printBT(Node *root, int tree_walk);
+void printTraceRoot(Node *n) {
+  while (n != NULL) {
+    printf("%i -> ", n->key);
+    n = n->parent;
+  }
+  printf("Null\n");
+}
+
+void printTraceLeaf(Node *n, int direction) {
+  if (direction == DIR_RIGHT) {
+    while (n != NULL) {
+      printf("%i -> ", n->key);
+      n = n->right;
+    }
+  }
+  else if (direction == DIR_LEFT) {
+    while (n != NULL) {
+      printf("%i -> ", n->key);
+      n = n->left;
+    }
+  }
+  printf("Null\n");
+}
 
 void printBT(Node *root, int tree_walk) {
   if (tree_walk == INORDER) { // inorder tree walk
