@@ -9,8 +9,7 @@
 
 #include <stdlib.h> // for malloc
 
-#define NODE_NOT_FOUND -1
-
+// Structure of a node
 typedef struct node {
   int key;
   struct node *left;
@@ -18,17 +17,23 @@ typedef struct node {
   struct node *parent;
 } Node;
 
-Node *insert(int);
-Node *BSTMin(Node*);
-Node *BSTMax(Node*);
-Node *BSTSuccessor(Node*);
-Node *BSTSearch(Node*, int);
+// Empty node by convention
+Node tm = {-1, NULL, NULL, NULL};
+Node *badnode = &tm;
+
+// Function Declarations
+Node *bst_make_node(int);
+Node *bst_min(Node*);
+Node *bst_max(Node*);
+Node *bst_successor(Node*);
+Node *bst_search(Node*, int);
+void bst_insert(Node*, Node*);
 
 /* Creates and returns a node n */
-Node *insert(int key) {
+Node *bst_make_node(int key) {
+  // make a node using dynamic memory allocation
   Node *n;
   n = (Node *)malloc(sizeof(Node));
-
   n->key = key;
   n->left = NULL;
   n->right = NULL;
@@ -37,42 +42,71 @@ Node *insert(int key) {
   return n;
 }
 
+/* Inserts n into BST */
+void bst_insert(Node* root, Node* n) {
+  Node *parent_ptr, *child_ptr = NULL; // iterator and parent
+
+  child_ptr = root;
+  while (child_ptr != NULL) {
+    parent_ptr = child_ptr; // maintain a ptr to parent
+    
+    // traverse  
+    child_ptr = (child_ptr->key > n->key)? child_ptr->left: child_ptr->right;
+  }
+  
+  n->parent = parent_ptr;
+  if (parent_ptr == NULL) // tree was empty
+    root = n;
+  else if (parent_ptr->key > n->key)
+    parent_ptr->left = n;
+  else
+    parent_ptr->right = n;
+}
+
 /* Returns a ptr to the minimum element int the tree */
-Node *BSTMin(Node *root) {
+Node *bst_min(Node *root) {
   for (; root->left != NULL; root = root->left)
     ;
-  return (root == NULL)? (Node *)NODE_NOT_FOUND: root;
+  return (root == NULL)? badnode: root;
 }
 
 /* Returns a ptr to the maximum element int the tree */
-Node *BSTMax(Node *root) {
+Node *bst_max(Node *root) {
   for (; root->left != NULL; root = root->right)
     ;
-  return (root == NULL)? (Node *)NODE_NOT_FOUND: root;
+  return (root == NULL)? badnode: root;
 }
 
-/* Returns node with smallest key greater than n */
-Node *BSTSuccessor(Node *n) {
+
+/* Returns node with smallest key greater than n, 
+ * returns badnode if n.key > all */
+Node *bst_successor(Node *n) {
   if (n->right != NULL)
     return n->right;
+  if (n->parent == NULL)
+    return NULL;
   
   Node *p;
-  for (p = n->parent; p != NULL && n == p->right; n = p, p = p->parent)
-    ;
-  return (p == NULL)? (Node*)NODE_NOT_FOUND: p;
+  p = n->parent;
+  while (p != NULL && n == p->right) {
+    n = p;
+    p = n->parent;
+  }
+
+  return p? p: badnode;
 }
 
 /* Returns a ptr to a node with key */
-Node *BSTSearch(Node *root, int key) {
+Node *bst_search(Node *root, int key) {
   if (root == NULL)
-    return (Node*)NODE_NOT_FOUND;
+    return badnode;
   if (root->key == key)
     return root;
 
   if (key > root->key) 
-    return BSTSearch(root->right, key);
+    return bst_search(root->right, key);
   else
-    BSTSearch(root->left, key);
+    bst_search(root->left, key);
 }
 
 #include <stdio.h> // for printing

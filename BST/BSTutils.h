@@ -7,15 +7,16 @@
 #define INORDER 0
 #define PREORDER 1
 #define POSTORDER 2
+
 // directions
 #define DIR_RIGHT 0
 #define DIR_LEFT 1
 
-void printTraceRoot(Node *);
-void printTraceLeaf(Node *, int);
-void printBT(Node *, int);
+void print_trace_root(Node *);
+void print_trace_leaf(Node *, int);
+void print_bt(Node *, int);
 
-void printTraceRoot(Node *n) {
+void print_trace_root(Node *n) {
   while (n != NULL) {
     printf("%i -> ", n->key);
     n = n->parent;
@@ -23,7 +24,7 @@ void printTraceRoot(Node *n) {
   printf("Null\n");
 }
 
-void printTraceLeaf(Node *n, int direction) {
+void print_trace_leaf(Node *n, int direction) {
   if (direction == DIR_RIGHT) {
     while (n != NULL) {
       printf("%i -> ", n->key);
@@ -39,20 +40,20 @@ void printTraceLeaf(Node *n, int direction) {
   printf("Null\n");
 }
 
-void printBT(Node *root, int tree_walk) {
+void print_bt(Node *root, int tree_walk) {
   if (tree_walk == INORDER) { // inorder tree walk
-    if (root->left) printBT(root->left, INORDER);
+    if (root->left) print_bt(root->left, INORDER);
     printf("%i, ", root->key);
-    if (root->right) printBT(root->right, INORDER);
+    if (root->right) print_bt(root->right, INORDER);
   }
   if (tree_walk == PREORDER) { // pre-order tree walk
     printf("%i, ", root->key);
-    if (root->left) printBT(root->left, PREORDER);
-    if (root->right) printBT(root->right, PREORDER);
+    if (root->left) print_bt(root->left, PREORDER);
+    if (root->right) print_bt(root->right, PREORDER);
   }
   if (tree_walk == POSTORDER) { // post-order tree walk
-    if (root->left) printBT(root->left, POSTORDER);
-    if (root->right) printBT(root->right, POSTORDER);
+    if (root->left) print_bt(root->left, POSTORDER);
+    if (root->right) print_bt(root->right, POSTORDER);
     printf("%i, ", root->key);
   }
   else {
