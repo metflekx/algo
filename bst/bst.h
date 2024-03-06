@@ -110,6 +110,6 @@ Node *bst_search(Node *root, int key) {
 }
 
 #include <stdio.h> // for printing
-#include "BSTutils.h"
+#include "bst-utils.h"
 
 #endif
