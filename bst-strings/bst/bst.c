@@ -12,18 +12,39 @@
  *  [ ] 3.implement insert, delete, max, min
  *  successor, search, rank, rotate functoins.
  *      [*] 1.make insert and print with all sizes = 0 
- *      [ ] 2.implement the rotation
+ *      [*] 2.implement the rotation
  *      [ ] 3.maintain balanced property at insert.
  *
  *  [ ] 4.make an error handling mechanism.
  *
  * References:
  * ------------------------------------------------------------
- *    function:
- *      Node *bst_init_root(char *key);
- *    usage:
+ *    @header:
+ *      Node *bst_init_root(char *key)
+ *    @brief:
  *      Creates and returns a ptr to root.
+ *    @param key:
+ *      the key to store in the node. 
+ *    @ret:
+ *      a ptr to the newly created node.
  * ------------------------------------------------------------
+ *    @header:
+ *      void left_rotate(Node **root, Node *x)
+ *    @brief:
+ *      Performs rotation operation to preserve AVL property
+ *    @param root:
+ *      ptr to root ptr, passed by reference.
+ *    @param x:
+ *      ptr to the target node.
+ * ------------------------------------------------------------
+ *    @header:
+ *      void bst_insert(Node **root, char *key)
+ *    @brief:
+ *      Creates and inserts node n, updates sizeses.
+ *    @param root:
+ *      ptr to root ptr, passed by reference.
+ *    @param key:
+ *      the key to store in the node.
  */
 
 #ifndef BTS_C
