@@ -143,7 +143,7 @@ AvlNode *avl_make_AvlNode(int key);
 AvlNode *avl_min(AvlNode *root);
 AvlNode *avl_max(AvlNode *root);
 AvlNode *avl_successor(AvlNode *n);
-AvlNode *avl_search(AvlNode *root, intkey );
+AvlNode *avl_search(AvlNode *root, int key);
 void *avl_left_rotate(AvlNode **root, AvlNode *x);
 void *avl_right_rotate(AvlNode **root, AvlNode *x);
 void avl_insert(AvlNode **root, AvlNode *n);
