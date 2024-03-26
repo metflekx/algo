@@ -2,7 +2,7 @@
 
 Algorithms Implementation in C.
 
-#### installing avl
+#### installing avl ( LINUX ONLY )
 
 ```bash
 cd avl
