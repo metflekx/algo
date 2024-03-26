@@ -4,7 +4,6 @@
  * MIT's "Introduction to Algorithms"
  * 
  * todo:
- *  [*] implement delete
  *  [ ] implement rebalancing 
  *  [ ] fix rotate to rebalance
  *  [ ] implement error handling and make sure 
@@ -121,34 +120,8 @@
  * ------------------------------------------------------------
  * */
 
-#ifndef avl_H
-#define avl_H
-
-#include <stdlib.h> // for malloc
-
-// Structure of a AvlNode
-typedef struct avlnode {
-  int key;
-  struct avlnode *left;
-  struct avlnode *right;
-  struct avlnode *parent;
-  int size;
-} AvlNode;
-
-// Empty AvlNode by convention
-AvlNode *bad_avlnode_ptr = NULL;
-
-// Function Declarations
-AvlNode *avl_make_AvlNode(int key);
-AvlNode *avl_min(AvlNode *root);
-AvlNode *avl_max(AvlNode *root);
-AvlNode *avl_successor(AvlNode *n);
-AvlNode *avl_search(AvlNode *root, int key);
-void *avl_left_rotate(AvlNode **root, AvlNode *x);
-void *avl_right_rotate(AvlNode **root, AvlNode *x);
-void avl_insert(AvlNode **root, AvlNode *n);
-AvlNode *avl_delete(AvlNode **root, AvlNode *n);
-int avl_rank(AvlNode *root, int t);
+#include "avl.h"
+#include "avl_utils.c"
 
 /* Creates and returns a AvlNode n */
 AvlNode *avl_make_AvlNode(int key) {
@@ -163,7 +136,6 @@ AvlNode *avl_make_AvlNode(int key) {
 
   return n;
 }
-
 /* Returns a ptr to the minimum element int the tree */
 AvlNode *avl_min(AvlNode *root) {
   for (; root->left != NULL; root = root->left)
@@ -333,8 +305,3 @@ int avl_rank(AvlNode *root, int t) {
   else
     return avl_rank(root->left, t);
 }
-
-#include <stdio.h> // for printing
-#include "avl-utils.h"
-
-#endif
